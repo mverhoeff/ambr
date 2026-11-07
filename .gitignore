@@ -1,0 +1,26 @@
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+android/local.properties
+android/.idea/
+android/.kotlin/
+*.iml
+captures/
+
+# Python
+pc-pipeline/.venv/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+pc-pipeline/workspace/
+pc-pipeline/third_party/gsplat/
+
+# Archives
+*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
