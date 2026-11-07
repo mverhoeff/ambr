@@ -11,6 +11,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 
 enum class AmbrThemeMode { DARK, OUTDOOR }
 
+val LocalAmbrThemeMode = staticCompositionLocalOf { AmbrThemeMode.DARK }
 val LocalAmbrColors = staticCompositionLocalOf { DarkColors }
 val LocalAmbrType = staticCompositionLocalOf { AmbrTypeScale }
 
@@ -24,6 +25,7 @@ fun AmbrTheme(
         AmbrThemeMode.OUTDOOR -> OutdoorColors
     }
     CompositionLocalProvider(
+        LocalAmbrThemeMode provides mode,
         LocalAmbrColors provides colors,
         LocalAmbrType provides AmbrTypeScale,
     ) {
@@ -37,6 +39,9 @@ fun AmbrTheme(
 
 /** Access point for the current ambr theme values: `Ambr.colors.accent`, `Ambr.type.body`. */
 object Ambr {
+    val mode: AmbrThemeMode
+        @Composable @ReadOnlyComposable get() = LocalAmbrThemeMode.current
+
     val colors: AmbrColors
         @Composable @ReadOnlyComposable get() = LocalAmbrColors.current
 
