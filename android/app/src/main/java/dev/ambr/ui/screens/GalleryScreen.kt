@@ -73,7 +73,7 @@ private val CameraPlaceholder = Color(0xFF8D8379)
 
 /** Debug screen showing every component in both themes, for side-by-side comparison. */
 @Composable
-fun GalleryScreen() {
+fun GalleryScreen(onOpenCapture: () -> Unit = {}) {
     var mode by rememberSaveable { mutableStateOf(AmbrThemeMode.DARK) }
     AmbrTheme(mode) {
         val c = Ambr.colors
@@ -97,6 +97,12 @@ fun GalleryScreen() {
                     label = "Outdoor theme",
                 )
             }
+            AmbrButton(
+                "Open capture",
+                onClick = onOpenCapture,
+                icon = "photo_camera",
+                modifier = Modifier.padding(horizontal = AmbrSpace.s4),
+            )
             GalleryContent()
             Spacer(Modifier.height(AmbrSpace.s10))
         }
