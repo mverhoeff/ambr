@@ -72,8 +72,13 @@ import dev.ambr.ui.theme.AmbrThemeMode
 private val CameraPlaceholder = Color(0xFF8D8379)
 
 /** Debug screen showing every component in both themes, for side-by-side comparison. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun GalleryScreen(onOpenCapture: () -> Unit = {}) {
+fun GalleryScreen(
+    onOpenCapture: () -> Unit = {},
+    onRecordDevSession: () -> Unit = {},
+    onReplayDevSession: () -> Unit = {},
+) {
     var mode by rememberSaveable { mutableStateOf(AmbrThemeMode.DARK) }
     AmbrTheme(mode) {
         val c = Ambr.colors
@@ -97,12 +102,15 @@ fun GalleryScreen(onOpenCapture: () -> Unit = {}) {
                     label = "Outdoor theme",
                 )
             }
-            AmbrButton(
-                "Open capture",
-                onClick = onOpenCapture,
-                icon = "photo_camera",
-                modifier = Modifier.padding(horizontal = AmbrSpace.s4),
-            )
+            FlowRow(
+                Modifier.padding(horizontal = AmbrSpace.s4),
+                horizontalArrangement = Arrangement.spacedBy(AmbrSpace.s3),
+                verticalArrangement = Arrangement.spacedBy(AmbrSpace.s3),
+            ) {
+                AmbrButton("Open capture", onClick = onOpenCapture, icon = "photo_camera")
+                AmbrButton("Record dev session", onClick = onRecordDevSession, icon = "fiber_manual_record")
+                AmbrButton("Replay dev session", onClick = onReplayDevSession, icon = "play_arrow")
+            }
             GalleryContent()
             Spacer(Modifier.height(AmbrSpace.s10))
         }

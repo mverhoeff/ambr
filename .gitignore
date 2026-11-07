@@ -24,3 +24,6 @@ pc-pipeline/third_party/gsplat/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Local dev recordings and data
+dev-data/
