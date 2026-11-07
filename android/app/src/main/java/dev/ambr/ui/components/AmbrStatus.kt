@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.ambr.capture.Preset
 import dev.ambr.ui.theme.Ambr
 import dev.ambr.ui.theme.AmbrRadius
 import dev.ambr.ui.theme.AmbrSpace
@@ -105,7 +106,7 @@ enum class TrackingQuality { OK, LIMITED, LOST }
 /** The top glass strip on the capture screen. */
 @Composable
 fun StatusBar(
-    preset: ScenePreset,
+    preset: Preset,
     time: String,
     size: String,
     recording: Boolean,

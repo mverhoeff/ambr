@@ -51,7 +51,6 @@ import dev.ambr.ui.components.PipelineStep
 import dev.ambr.ui.components.PresetPicker
 import dev.ambr.ui.components.ScanCard
 import dev.ambr.ui.components.ScanStatus
-import dev.ambr.ui.components.ScenePreset
 import dev.ambr.ui.components.SettingRow
 import dev.ambr.ui.components.SettingsGroup
 import dev.ambr.ui.components.ShutterButton
@@ -63,6 +62,7 @@ import dev.ambr.ui.components.StepState
 import dev.ambr.ui.components.TrackingQuality
 import dev.ambr.ui.components.ViewerMode
 import dev.ambr.ui.components.ViewerToolbar
+import dev.ambr.capture.Preset
 import dev.ambr.ui.theme.Ambr
 import dev.ambr.ui.theme.AmbrSpace
 import dev.ambr.ui.theme.AmbrTheme
@@ -180,8 +180,8 @@ private fun GalleryContent() {
     Section("StatusBar") {
         Camera(Modifier.heightIn(min = 120.dp).padding(AmbrSpace.s4)) {
             Column(verticalArrangement = Arrangement.spacedBy(AmbrSpace.s2)) {
-                StatusBar(ScenePreset.ROOM, "02:14", "1.4 GB", recording = true, tracking = TrackingQuality.OK)
-                StatusBar(ScenePreset.OBJECT, "00:41", "310 MB", recording = true, tracking = TrackingQuality.LIMITED)
+                StatusBar(Preset.ROOM, "02:14", "1.4 GB", recording = true, tracking = TrackingQuality.OK)
+                StatusBar(Preset.OBJECT, "00:41", "310 MB", recording = true, tracking = TrackingQuality.LIMITED)
             }
         }
     }
@@ -222,16 +222,16 @@ private fun GalleryContent() {
     }
 
     Section("PresetPicker") {
-        var preset by remember { mutableStateOf(ScenePreset.ROOM) }
+        var preset by remember { mutableStateOf(Preset.ROOM) }
         PresetPicker(preset, onChange = { preset = it })
     }
 
     Section("ScanCard") {
         val thumb = remember { ColorPainter(CameraPlaceholder) }
         Column(verticalArrangement = Arrangement.spacedBy(AmbrSpace.s3)) {
-            ScanCard("Living room", ScenePreset.ROOM, "6 Nov, 23:14 · 1.4 GB", ScanStatus.READY, onClick = {}, thumbnail = thumb)
-            ScanCard("Ceramic vase", ScenePreset.OBJECT, "5 Nov · 310 MB", ScanStatus.PROCESSING, onClick = {}, progress = 42, thumbnail = thumb)
-            ScanCard("Garden shed", ScenePreset.OUTDOOR, "2 Nov · 2.1 GB", ScanStatus.FAILED, onClick = {}, thumbnail = thumb)
+            ScanCard("Living room", Preset.ROOM, "6 Nov, 23:14 · 1.4 GB", ScanStatus.READY, onClick = {}, thumbnail = thumb)
+            ScanCard("Ceramic vase", Preset.OBJECT, "5 Nov · 310 MB", ScanStatus.PROCESSING, onClick = {}, progress = 42, thumbnail = thumb)
+            ScanCard("Garden shed", Preset.OUTDOOR, "2 Nov · 2.1 GB", ScanStatus.FAILED, onClick = {}, thumbnail = thumb)
         }
     }
 

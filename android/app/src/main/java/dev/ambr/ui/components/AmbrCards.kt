@@ -39,18 +39,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.ambr.capture.Preset
 import dev.ambr.ui.theme.Ambr
 import dev.ambr.ui.theme.AmbrRadius
 import dev.ambr.ui.theme.AmbrSize
 import dev.ambr.ui.theme.AmbrSpace
 import dev.ambr.ui.theme.AmbrThemeMode
 
-/** Display info for the three scene types. Preset numbers live elsewhere; this is only what the UI shows. */
-enum class ScenePreset(val icon: String, val label: String, val hint: String) {
-    OBJECT("deployed_code", "Object", "Orbit around it at arm's length. 2 cm detail."),
-    ROOM("chair", "Room", "Walk the walls, then the middle. 5 cm detail."),
-    OUTDOOR("landscape", "Outdoor", "Slow passes along the facade. 20 cm detail."),
-}
+/** One-sentence explanation shown under the PresetPicker. */
+val Preset.hint: String
+    get() = when (this) {
+        Preset.OBJECT -> "Orbit around it at arm's length. 2 cm detail."
+        Preset.ROOM -> "Walk the walls, then the middle. 5 cm detail."
+        Preset.OUTDOOR -> "Slow passes along the facade. 20 cm detail."
+    }
 
 /** In the Outdoor theme, cards, device cards and stat tiles get a `line` border. */
 @Composable
@@ -67,7 +69,7 @@ enum class ScanStatus { CAPTURED, PROCESSING, READY, FAILED }
 @Composable
 fun ScanCard(
     title: String,
-    preset: ScenePreset,
+    preset: Preset,
     meta: String,
     status: ScanStatus,
     onClick: () -> Unit,
@@ -333,8 +335,8 @@ fun SettingRow(
 /** Scene-type choice for the new-scan sheet. */
 @Composable
 fun PresetPicker(
-    value: ScenePreset,
-    onChange: (ScenePreset) -> Unit,
+    value: Preset,
+    onChange: (Preset) -> Unit,
     modifier: Modifier = Modifier,
     showHint: Boolean = true,
 ) {
@@ -349,7 +351,7 @@ fun PresetPicker(
                 .selectableGroup(),
             horizontalArrangement = Arrangement.spacedBy(AmbrSpace.s1),
         ) {
-            ScenePreset.entries.forEach { preset ->
+            Preset.entries.forEach { preset ->
                 val on = preset == value
                 val shape = RoundedCornerShape(AmbrRadius.md)
                 val interaction = remember { MutableInteractionSource() }
